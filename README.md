@@ -4,7 +4,6 @@ AutoHotkey v1 - Enhanced WindowSpy
 Whats new/updated by me?
 - it now shows a color bar, where the cursor is pointing at (visual improvement)
 - additional color information normal/slow (some apps can only show/use slow detection)
-- additional color information red/green/blue separation (for better precission)
 - resized a edit field in height to reduce the need of scrolling
 - if the script itself got edited, it autoreloads itself
 - added a function to dump arrays into notepad, for debugging the script
