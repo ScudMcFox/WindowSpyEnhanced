@@ -110,9 +110,9 @@ Gui, Add, Edit, w320 r5 ReadOnly vCtrl_AllText
 Gui, Font,, % "s12 q4"
 Gui, Add, Text, w320 r1 vCtrl_Freeze, % txtNotFrozen
 
-if (A_ComputerName == "SCUDMCFOX")
+if (A_ComputerName == "PCA")
   Gui, Show, x2560 y540 NoActivate, Window Spy
-if (A_ComputerName == "TV")
+if (A_ComputerName == "PCB")
   Gui, Show, % "x" A_ScreenWidth-1024 " y" A_ScreenHeight*2-700 " NoActivate", Window Spy
 else
   Gui, Show, % "NoActivate", Window Spy
