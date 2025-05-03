@@ -93,10 +93,10 @@ Gui, Add, Checkbox, yp xp+200 w120 Right Checked vCtrl_FollowMouse, Follow Mouse
 Gui, Add, Edit, xm w320 r3 ReadOnly -Wrap vCtrl_Title
 Gui, Add, Text, w80, Mouse Position:
 ; Gui, Add, Button, x+20 w40 h15 g_BTNCopyColor, % "cColor"
-Gui, Add, Edit, x10 w320 r5 ReadOnly vCtrl_MousePos
+Gui, Add, Edit, x10 w320 r6 ReadOnly vCtrl_MousePos
 Gui, Add, Text, w160 vCtrl_CtrlLabel, % txtFocusCtrl ":"
 Gui, Add, Edit, w320 r4 ReadOnly vCtrl_Ctrl
-Gui, Add, Progress, x180 y171 w150 h22 Disabled c000000 vcolProgress, 100
+Gui, Add, Progress, x180 y184 w150 h22 Disabled c000000 vcolProgress, 100
 Gui, Add, Text, x180 y171 w150 h22 g_BTNCopyColor BackgroundTrans, % ""
 Gui, Add, Text, xm , Active Window Position:
 Gui, Add, Edit, w320 r2 ReadOnly vCtrl_Pos
@@ -171,14 +171,20 @@ Update:
   MouseGetPos, mrX, mrY
   CoordMode, Mouse, Client
   MouseGetPos, mcX, mcY
-  PixelGetColor, mClr, %msX%, %msY%, RGB
-  mClr := SubStr(mClr, 3)
-  PixelGetColor, mClrS, %msX%, %msY%, RGB Slow
+  PixelGetColor, mClrR, %msX%, %msY%, RGB
+  mClrR := SubStr(mClrR, 3)
+  PixelGetColor, mClrA, %msX%, %msY%, Alt
+  mClrA := SubStr(mClrA, 3)
+  PixelGetColor, mClrS, %msX%, %msY%, Slow
   mClrS := SubStr(mClrS, 3)
-  GuiControl, +c%mClrS%, colProgress
-  GuiControl,, Ctrl_MousePos, % "Screen:`t" msX ", " msY " (less often used)`nWindow:`t" mrX ", " mrY " (default)`nClient:`t" mcX ", " mcY " (recommended)"
-    . "`nColorN:`t" mClr " (Red=" SubStr(mClr, 1, 2) " Green=" SubStr(mClr, 3, 2) " Blue=" SubStr(mClr, 5) ")"
-    . "`nColorS:`t" mClrS " (Red=" SubStr(mClrS, 1, 2) " Green=" SubStr(mClrS, 3, 2) " Blue=" SubStr(mClrS, 5) ")`n"
+  mClrSRGB := "0x" SubStr(mClrS,5,2) SubStr(mClrS,3,2) SubStr(mClrS,1,2) 
+  GuiControl, +c%mClrSRGB%, colProgress
+  GuiControl,, Ctrl_MousePos, % "Screen:`t" msX ", " msY " (less often used)`n"
+    . "Window:`t" mrX ", " mrY " (default)`n"
+    . "Client:`t" mcX ", " mcY " (recommended)`n"
+    . "ColorRGB:`t"    mClrR " (Red=" SubStr(mClrR, 1, 2) " Green=" SubStr(mClrR, 3, 2) " Blue=" SubStr(mClrR, 5,2) ")`n"
+    . "ColorAlt:`t`t"  mClrA " (Red=" SubStr(mClrA, 5, 2) " Green=" SubStr(mClrA, 3, 2) " Blue=" SubStr(mClrA, 1,2) ")`n"
+    . "ColorSlow:`t"   mClrS " (Red=" SubStr(mClrS, 5, 2) " Green=" SubStr(mClrS, 3, 2) " Blue=" SubStr(mClrS, 1,2) ")`n"
   GuiControl,, Ctrl_CtrlLabel, % (Ctrl_FollowMouse ? txtMouseCtrl : txtFocusCtrl) ":"
   if (curCtrl)
   { ControlGetText, ctrlTxt, %curCtrl%
